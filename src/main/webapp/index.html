@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>IM</title>
+    <style type="text/css">
+        .message {
+            background: #DCE1DA;
+            width: 100%;
+            height: 500px;
+            overflow: auto;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .rightFloat {
+            width: 100%;
+            height: auto;
+            text-align: right;
+        }
+
+        .leftFloat {
+            width: 100%;
+            height: auto;
+            text-align: left;
+        }
+    </style>
+
+</head>
+<body>
+<script>
+    function enterPress(e) {
+        var e = e || window.event;
+        if(e.keyCode == 13) {
+            //document.getElementById("sender").focus();
+            //document.getElementById("message").focus();
+            messageSender();
+            e.cancelBubble=true;
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+    }
+
+    var socket = new WebSocket("ws://im.maxwe.org:1121");
+    socket.onmessage = function (event) {
+        messageShow(event.data)
+    }
+    socket.onopen = function (event) {
+        alert("Web Socket opened");
+    };
+    socket.onclose = function (event) {
+        alert("Web Socket closed");
+    };
+
+    socket.onerror = function (event) {
+        alert("Web Socket error ");
+    }
+    function messageSender() {
+        var name = document.getElementById("name").value;
+        if (name.trim() == "") {
+            alert("name cant`t be null");
+            return;
+        }
+        var message = document.getElementById("message").value;
+        if (message.trim() == "") {
+            alert("message cant`t be null");
+            return;
+        }
+        var json = '{"name":"' + name.trim() + '", "message":"' + message.trim() + '"}';
+        socket.send(json);
+        document.getElementById("message").value = "";
+    }
+
+    function messageShow(message) {
+
+        var div = document.createElement("div");
+
+        var input = document.createElement("input");
+        input.setAttribute("type", "button");
+        var json = JSON.parse(message);
+        if (json.name == (document.getElementById("name").value)) {
+            div.className = "rightFloat";
+            input.setAttribute("value", json.message);
+        } else {
+            div.className = "leftFloat";
+            input.setAttribute("value", json.name + " say: " + json.message);
+        }
+
+        div.appendChild(input);
+
+        var showMessages = document.getElementById("showMessages");
+        showMessages.appendChild(div);
+        showMessages.appendChild(document.createElement("br"));
+
+        showMessages.scrollTop = showMessages.scrollHeight;
+    }
+</script>
+<input type="text" id="name" style="width: 100%;"/>
+
+<div id="showMessages" class="message"></div>
+<textarea type="text" id="message" style="width: 100%;height: 100px" onkeypress="enterPress(event)" onkeydown="enterPress()"></textarea>
+<input id="sender" type="button" value="发送" style="width: 100%;" onclick="messageSender()">
+</body>
+</html>
