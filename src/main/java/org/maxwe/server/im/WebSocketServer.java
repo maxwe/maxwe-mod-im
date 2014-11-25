@@ -11,6 +11,9 @@ import org.vertx.java.core.http.ServerWebSocket;
 import org.vertx.java.core.logging.Logger;
 import org.vertx.java.platform.Verticle;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by dingpengwei on 11/14/14.
  */
@@ -21,10 +24,12 @@ public class WebSocketServer extends Verticle {
     @Override
     public void start() {
         final Logger logger = container.logger();
+        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         final HttpServer server = vertx.createHttpServer();
         server.websocketHandler(new Handler<ServerWebSocket>() {
                                     public void handle(final ServerWebSocket ws) {
-                                        logger.info("=============receive a connect==============");
+                                        logger.info("=============receive a connect==============" + simpleDateFormat.format(new Date()).toString());
 
                                         final EventBus eventBus = vertx.eventBus();
                                         final Handler handler = new Handler<Message>() {
