@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>IM</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <style type="text/css">
         .message {
             background: #DCE1DA;
             width: 100%;
-            height: 500px;
+            height: 400px;
             overflow: auto;
             margin: 0 auto;
             text-align: center;
@@ -96,10 +103,18 @@
         showMessages.scrollTop = showMessages.scrollHeight;
     }
 </script>
-<label style="width:5%">姓名：<label><input type="text" id="name" style="width: 95%;"/>
-
-<div id="showMessages" class="message"></div>
-<textarea type="text" id="message" style="width: 100%;height: 100px" onkeypress="enterPress(event)" onkeydown="enterPress()"></textarea>
-<input id="sender" type="button" value="发送" style="width: 100%;" onclick="messageSender()">
+<div class="container">
+    <h3 class="form-signin-heading">WELCOME TO im.maxwe.org</h3>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">@</span>
+        <input id="name" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Panel heading without title</div>
+        <div class="panel-body message" id="showMessages"></div>
+    </div>
+    <textarea name="pwd" type="text" id="message" class="form-control" required onkeypress="enterPress(event)" onkeydown="enterPress()"></textarea>
+    <input id="sender" type="button" value="发送" style="width: 100%;" onclick="messageSender()">
+</div>
 </body>
 </html>
