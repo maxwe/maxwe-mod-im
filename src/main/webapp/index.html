@@ -110,11 +110,11 @@
         <input id="name" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
     </div>
     <div class="panel panel-default">
-        <div class="panel-heading">Panel heading without title</div>
+        <div class="panel-heading">Message List</div>
         <div class="panel-body message" id="showMessages"></div>
     </div>
-    <textarea name="pwd" type="text" id="message" class="form-control" required onkeypress="enterPress(event)" onkeydown="enterPress()"></textarea>
-    <input id="sender" type="button" value="发送" style="width: 100%;" onclick="messageSender()">
+    <input name="pwd" type="text" id="message" placeholder="Message" class="form-control" required onkeypress="enterPress(event)" onkeydown="enterPress()"/>
+    <input id="sender" type="button" class="btn btn-default" value="发送" style="width: 100%;" onclick="messageSender()">
 </div>
 </body>
 </html>
